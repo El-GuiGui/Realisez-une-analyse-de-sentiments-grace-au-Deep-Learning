@@ -1,0 +1,10 @@
+env*/
+__pycache__/
+logs/
+mlruns/
+*.ipynb_checkpoints
+out/modernbert
+out/modernbert_model
+data/embeddings/*
+.vscode
+data/training.1600000.processed.noemoticon.csv
