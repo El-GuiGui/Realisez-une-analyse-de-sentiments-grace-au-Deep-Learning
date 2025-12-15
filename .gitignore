@@ -5,5 +5,7 @@ mlruns/
 *.ipynb_checkpoints
 out/modernbert
 out/modernbert_model
+.vscode
 data/embeddings/*
+.pytest_cache
 data/training.1600000.processed.noemoticon.csv
