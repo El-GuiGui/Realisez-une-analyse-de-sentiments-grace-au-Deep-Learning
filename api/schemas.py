@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class HealthOut(BaseModel):
@@ -24,3 +25,16 @@ class FeedbackIn(BaseModel):
 
 class FeedbackOut(BaseModel):
     status: str
+
+
+class StatsOut(BaseModel):
+    total_predictions: int
+    total_wrong_predictions: int
+    error_rate: float
+
+
+class WrongFeedbackOut(BaseModel):
+    text: str
+    predicted_label: int
+    proba: float
+    timestamp: datetime

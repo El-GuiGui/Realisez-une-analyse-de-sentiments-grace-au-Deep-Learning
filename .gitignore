@@ -10,3 +10,4 @@ out/modernbert_model
 data/embeddings/*
 .pytest_cache
 data/training.1600000.processed.noemoticon.csv
+.env
