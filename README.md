@@ -387,7 +387,3 @@ Quelques axes possibles si le projet devait aller plus loin :
 - Gérer d’autres langues ou d’autres réseaux sociaux (Instagram, Facebook, avis sites tiers, etc.).
 
 ---
-
-```
-
-```
