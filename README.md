@@ -83,6 +83,8 @@ Arborescence principale :
 └── .github/workflows/...
     └── ci.yml               # CI GitHub Actions (installation + pytest)
 
+```
+
 ---
 
 Les gros fichiers (dataset CSV, venv, artefacts temporaires, etc.) sont exclus du dépôt via .gitignore.
@@ -122,11 +124,12 @@ cd <"votre dossier">
 python -m venv env
 
 Activer :
-source env/bin/activate      # Linux / macOS
+source env/bin/activate # Linux / macOS
 -> ou
-env\Scripts\activate         # Windows
+env\Scripts\activate # Windows
 
 # Installation des dépendances
+
 pip install -r requirements.txt
 
 ### 4.3. Télécharger les ressources NLTK
@@ -161,7 +164,6 @@ Pour certaines plateformes (Replit, CI GitHub), ce téléchargement est fait aut
 
 Ce fichier .joblib est celui qui sera utilisé par l’API.
 
-
 ### 5.2. Modèle avancé (embeddings + réseau de neurones)
 
 1. Ouvrir notebooks/4_modele_avance.ipynb.
@@ -173,7 +175,6 @@ Ce fichier .joblib est celui qui sera utilisé par l’API.
 4. Entraîner le modèle (LSTM ici présent).
 
 5. Logger dans MLflow : hyperparamètres, métriques, figures (courbes d’accuracy, matrices de confusion).
-
 
 ### 5.3. Modèle ModernBERT / Transformers
 
@@ -189,9 +190,7 @@ Ce fichier .joblib est celui qui sera utilisé par l’API.
 
 Depuis la racine du projet (dans la console):
 
-
 mlflow ui
-
 
 Puis ouvrir l’URL indiquée (http://127.0.0.1:5000) pour comparer les expériences (baseline, embeddings, BERT).
 
@@ -205,21 +204,17 @@ Assurez-vous que le fichier suivant existe (généré par le notebook 3) :
 
 models/tfidf_logreg.joblib
 
-
 C’est ce fichier que api/model_loader.py charge au démarrage.
 
 ### 6.2. Lancer FastAPI en local
 
 Depuis la racine du projet (environnement virtuel activé) :
 
-
 uvicorn api.main:app --reload
-
 
 L’API est alors disponible par défaut sur :
 
 http://127.0.0.1:8000
-
 
 La documentation interactive est accessible à :
 
@@ -234,7 +229,6 @@ Dans app/streamlit_app.py, veillez à ce que l’URL de l’API soit bien locale
 API_BASE_URL = "http://127.0.0.1:8000"
 (commenter la ligne replit)
 
-
 Puis lancer Streamlit :
 
 streamlit run app/streamlit_app.py
@@ -242,7 +236,6 @@ streamlit run app/streamlit_app.py
 Accès local :
 
 http://localhost:8501/
-
 
 L’interface web permet :
 
@@ -258,7 +251,6 @@ L’interface web permet :
 
 ## 8. Endpoints principaux de l’API
 
-
 'GET /health'
 
 - Vérifie que l’API est démarrée.
@@ -271,30 +263,26 @@ L’interface web permet :
 
 { "text": "I love this airline, best flight ever!" }
 
-
 - Sortie :
 
 {
-  "label": 1,
-  "label_str": "positive",
-  "proba": 0.93
+"label": 1,
+"label_str": "positive",
+"proba": 0.93
 }
 
-
 Le texte est prétraité via preprocess_simple, puis passé dans le pipeline TF-IDF + LogReg chargé en mémoire.
-
 
 'POST /feedback'
 
 - Entrée :
 
 {
-  "text": "tweet original",
-  "prediction": 1,
-  "proba": 0.93,
-  "is_correct": false
+"text": "tweet original",
+"prediction": 1,
+"proba": 0.93,
+"is_correct": false
 }
-
 
 - Si is_correct est false, l’API log une mauvaise prédiction dans logs/feedback.log et met à jour les compteurs/alertes.
 
@@ -315,23 +303,22 @@ Ces endpoints sont consommés par l’onglet “Monitoring” de l’interface S
 ---
 
 ## 9. Monitoring & alertes
+
 ### 9.1. Logging structuré
 
 Chaque mauvaise prédiction signalée par un utilisateur est enregistrée comme une ligne JSON dans :
 
 'logs/feedback.log'
 
-
 Exemple :
 
 {
-  "timestamp": "2025-01-01T10:15:32Z",
-  "type": "WRONG_PREDICTION",
-  "text": "Nice airline but it's not a good airline company",
-  "prediction": 1,
-  "proba": 0.73
+"timestamp": "2025-01-01T10:15:32Z",
+"type": "WRONG_PREDICTION",
+"text": "Nice airline but it's not a good airline company",
+"prediction": 1,
+"proba": 0.73
 }
-
 
 Une entrée de type ALERT est ajoutée lorsqu’un seuil est franchi.
 
@@ -339,9 +326,9 @@ Une entrée de type ALERT est ajoutée lorsqu’un seuil est franchi.
 
 - Si 3 mauvaises prédictions ou plus sont enregistrées sur une fenêtre de 5 minutes, alors une alerte est déclenchée :
 
-    - Écriture d’un log ALERT dans feedback.log,
+  - Écriture d’un log ALERT dans feedback.log,
 
-    - Envoi d’un email selon la configuration SMTP avec les informations essentielles.
+  - Envoi d’un email selon la configuration SMTP avec les informations essentielles.
 
 ### 9.3. Configuration des emails (Mailtrap)
 
@@ -361,7 +348,6 @@ Le projet utilise des variables d’environnement pour l’alerte email :
 
 En local, on peut les définir via un fichier .env (non versionné) ou directement dans l’environnement du système.
 
-
 ---
 
 ## 10. Intégration continue (CI)
@@ -373,7 +359,6 @@ Le dépôt contient un workflow GitHub Actions qui :
 - Télécharge les ressources NLTK nécessaires (stopwords, punkt, etc.).
 
 - Lance pytest sur le dossier tests/.
-
 
 Objectif : s’assurer que :
 
@@ -401,9 +386,8 @@ Quelques axes possibles si le projet devait aller plus loin :
 
 - Gérer d’autres langues ou d’autres réseaux sociaux (Instagram, Facebook, avis sites tiers, etc.).
 
-
 ---
 
-
+```
 
 ```
